@@ -39,7 +39,8 @@ const server = http.createServer((request, response) => {
 						body: message,
 						title: query.title || "",
 						tag: query.tag || key,
-						type: query.type
+						type: query.type,
+						format: query.format
 					});
 					responseCode = 200;
 					responseText = `Sent ${message} to ${appriseUrl} using ${template} with a response ${appriseResponse.status} ${JSON.stringify(appriseResponse.data)}`;
