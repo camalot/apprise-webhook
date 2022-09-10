@@ -52,8 +52,8 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: ghcr.io
-        username: camalot
-        password: ${{ github.token }}
+        username: ${{ secrets.GHCR_USERNAME }}
+        password: ${{ secrets.GHCR_TOKEN }}
 
     - name: Build and Push GHCR
       id: docker_build
@@ -94,15 +94,3 @@ jobs:
     #   with:
     #     body_path: CHANGELOG.txt
     #     name: "${{ needs.version.outputs.app_version }}"
-  dispatch_documentation:
-    runs-on: ubuntu-latest
-    needs:
-    - merge
-    steps:
-    - name: dispatch build event
-      # ACTION_DISPATCH_TOKEN Format: user:token
-      run: |
-        curl -X POST https://api.github.com/repos/TacoContent/ourtacobot/dispatches \
-          -H 'Accept: application/vnd.github.v3+json' \
-          -u "${{ secrets.ACTION_DISPATCH_TOKEN }}" \
-          --data '{"event_type": "build_documentation"}'
