@@ -16,7 +16,7 @@ Allows to receive JSON messages and send them to [Apprise API](https://github.co
 
 
 ## Usage
-- Default address is `http://apprise-webhook:3000`. You can customise the behavior using query parameters:
+- Default address is `http://apprise-webhook:8001`. You can customise the behavior using query parameters:
   - `template` - template name which should be used (excluding `.njk`)
   - `key` - key to append to Apprise URL (e.g. `http://apprise:8000/notify/key`)
   - `title` - title to pass to Apprise API
@@ -26,7 +26,9 @@ Allows to receive JSON messages and send them to [Apprise API](https://github.co
   - `APPRISE_URL` - Apprise API URL (**required**)
   - `TEMPLATE` - Default template (**required if** `template` query parameter is not used)
   - `APPRISE_KEY` - Default key for Apprise API (*optional*)
-
+	- `NODE_PORT` - The port to listen (*optional* - default: 8001)
+	- `NODE_HOST` - The IP to bind to (*optional* - default: '0.0.0.0')
+	
 - docker-compose example
   ```yaml
   apprise:
@@ -38,14 +40,14 @@ Allows to receive JSON messages and send them to [Apprise API](https://github.co
 
   apprise-webhook:
     container_name: apprise-webhook
-    image: zzeneg/apprise-webhook
+    image: ghcr.io/camalot/apprise-webhook:latest
     restart: unless-stopped
     environment:
       APPRISE_URL: http://apprise:8000/notify
       TEMPLATE: mywebhook
       APPRISE_KEY: docker
     volumes:
-      - ./mywebhook.njk:/app/mywebhook.njk #custom template
+      - ./mywebhook.njk:/app/templates/mywebhook.njk #custom template
   ```
 - Alertmanager configuration (`alertmanager.yml`)
   ```yaml
@@ -56,13 +58,13 @@ Allows to receive JSON messages and send them to [Apprise API](https://github.co
     - name: 'apprise'
       webhook_configs:
         - send_resolved: true
-          url: http://apprise-webhook:3000?template=alertmanager&key=logger
+          url: http://apprise-webhook:8001?template=alertmanager&key=logger
   ```
 - Diun configuration (`diun.yml`)
   ```yaml
   notif:
     webhook:
       enable: true
-      endpoint: http://apprise-webhook:3000?template=diun&title=*Diun*
+      endpoint: http://apprise-webhook:8001?template=diun&title=*Diun*
       method: POST
   ```

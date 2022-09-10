@@ -1,10 +1,13 @@
 FROM node:alpine
 
+ARG PROJECT_NAME
+ARG BUILD_VERSION
+
 WORKDIR /app
 
 RUN npm i nunjucks axios
 
-COPY app/ /app
+COPY app/* /app/
 
-EXPOSE 3000
+EXPOSE 8001
 CMD ["node", "index.js"]
