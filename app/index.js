@@ -42,7 +42,7 @@ const server = http.createServer((request, response) => {
 						type: query.type
 					});
 					responseCode = 200;
-					responseText = `Sent ${message} to ${appriseUrl} using ${template} with a response ${appriseResponse.status} ${appriseResponse.data}`;
+					responseText = `Sent ${message} to ${appriseUrl} using ${template} with a response ${appriseResponse.status} ${JSON.stringify(appriseResponse.data)}`;
 				}
 			} catch (error) {
 				responseCode = 500;
