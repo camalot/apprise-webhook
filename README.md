@@ -26,7 +26,9 @@ Allows to receive JSON messages and send them to [Apprise API](https://github.co
   - `APPRISE_URL` - Apprise API URL (**required**)
   - `TEMPLATE` - Default template (**required if** `template` query parameter is not used)
   - `APPRISE_KEY` - Default key for Apprise API (*optional*)
-
+	- `NODE_PORT` - The port to listen (*optional* - default: 8001)
+	- `NODE_HOST` - The IP to bind to (*optional* - default: '0.0.0.0')
+	
 - docker-compose example
   ```yaml
   apprise:

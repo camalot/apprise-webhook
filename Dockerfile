@@ -1,5 +1,8 @@
 FROM node:alpine
 
+ARG PROJECT_NAME
+ARG BUILD_VERSION
+
 WORKDIR /app
 
 RUN npm i nunjucks axios
