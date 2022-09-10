@@ -32,12 +32,13 @@ const server = http.createServer((request, response) => {
 					const key = query.key || process.env['APPRISE_KEY'] || '';
 					const appriseUrl = url.resolve(APPRISE_URL, key);
 					console.log(`using template "${template}".`);
+					console.log(body);
 					const message = env.render(`/app/templates/${template}.njk`, JSON.parse(body));
 					console.log(`Posting data to ${appriseUrl}`);
 					const appriseResponse = await axios.post(appriseUrl, {
 						body: message,
-						title: query.title,
-						tag: query.tag,
+						title: query.title || "",
+						tag: query.tag || key,
 						type: query.type
 					});
 					responseCode = 200;
