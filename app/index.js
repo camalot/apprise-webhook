@@ -34,6 +34,7 @@ const server = http.createServer((request, response) => {
 					console.log(`using template "${template}".`);
 					console.log(body);
 					const message = env.render(`/app/templates/${template}.njk`, JSON.parse(body));
+					console.log(message);
 					console.log(`Posting data to ${appriseUrl}`);
 					const appriseResponse = await axios.post(appriseUrl, {
 						body: message,

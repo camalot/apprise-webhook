@@ -1,4 +1,4 @@
-# docker-apprise-webhook
+# apprise-webhook
 
 Webhook receiver for [Apprise](https://github.com/caronc/apprise)
 
