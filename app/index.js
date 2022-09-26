@@ -38,11 +38,11 @@ const server = http.createServer((request, response) => {
 					console.log(message);
 					console.log(`Posting data to ${appriseUrl}`);
 					const json_data = {
-						body: message,
-						title: query.title || null,
-						tag: query.tag || null,
-						type: query.type || null,
-						format: query.format || null
+						body: message //,
+						// title: query.title || "",
+						// tag: query.tag || "",
+						// type: query.type || "",
+						// format: query.format || ""
 					};
 					console.log(json_data);
 					const appriseResponse = await axios.post(appriseUrl, json_data);
