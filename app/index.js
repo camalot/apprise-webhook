@@ -44,6 +44,34 @@ const server = http.createServer((request, response) => {
 						// type: query.type || "",
 						// format: query.format || ""
 					};
+
+					if (query.title) {
+						json_data["title"] = query.title;
+					}
+					if (query.tag) {
+						json_data["tag"] = query.tag;
+					}
+					const q_type = (query.type || "UNKNOWN").toLowerCase();
+					switch (q_type) {
+						case "info":
+						case "success":
+						case "warning":
+						case "failure":
+							json_data["type"] = q_type;
+							break;
+					}
+					const q_format = (query.format || "UNKNOWN").toLowerCase();
+					switch (q_format) {
+						case "text":
+						case "markdown":
+						case "html":
+							json_data["format"] = q_format;
+							break;
+						default:
+							json_data["format"] = "text";
+							break;
+					}
+					
 					console.log(json_data);
 					const appriseResponse = await axios.post(appriseUrl, json_data);
 					responseCode = 200;
