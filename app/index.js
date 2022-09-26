@@ -2,6 +2,7 @@
 const http = require('http');
 const url = require('url');
 const nunjucks = require('nunjucks');
+const { json } = require('stream/consumers');
 const axios = require('axios').default;
 
 const APPRISE_URL = process.env['APPRISE_URL'];
@@ -36,13 +37,15 @@ const server = http.createServer((request, response) => {
 					const message = env.render(`/app/templates/${template}.njk`, JSON.parse(body));
 					console.log(message);
 					console.log(`Posting data to ${appriseUrl}`);
-					const appriseResponse = await axios.post(appriseUrl, {
+					const json_data = {
 						body: message,
-						title: query.title || "",
-						tag: query.tag || key,
-						type: query.type,
-						format: query.format
-					});
+						title: query.title || null,
+						tag: query.tag || null,
+						type: query.type || null,
+						format: query.format || null
+					};
+					console.log(json_data);
+					const appriseResponse = await axios.post(appriseUrl, json_data);
 					responseCode = 200;
 					responseText = `Sent ${message} to ${appriseUrl} using ${template} with a response ${appriseResponse.status} ${JSON.stringify(appriseResponse.data)}`;
 				}
