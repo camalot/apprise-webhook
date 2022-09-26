@@ -1,0 +1,8 @@
+{% if title -%}
+	{{ '🔥' if type === 'failure' }} *{{ type | upper }}* {{ '🔥' if type === 'failure' }}
+	{{ '⚠' if type === 'warning' }} *{{ type | upper }}* {{ '⚠' if type === 'warning' }}
+	{{ '✅' if type === 'success' }} *{{ type | upper }}* {{ '✅' if type === 'success' }}
+	{{ 'ℹ' if type === 'info' }} *{{ type | upper }}* {{ 'ℹ' if type === 'info' }}
+{% endif %}
+
+{{ body }}
