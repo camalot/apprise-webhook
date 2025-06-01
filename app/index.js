@@ -85,6 +85,12 @@ const server = http.createServer((request, response) => {
 			response.end(responseText + '');
 			console.log(responseText);
 		});
+	} else if (request.method === 'GET' && request.url.match(/^\/healthz?\/?$/)) {
+		response.writeHead(200, { 'Content-Type': 'text/plain' });
+		response.end('OK');
+	} else {
+		response.writeHead(404);
+		response.end(`Not found: ${request.method} ${request.url}`);
 	}
 });
 
