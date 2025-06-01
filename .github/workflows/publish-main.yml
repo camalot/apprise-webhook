@@ -1,4 +1,4 @@
-name: Apprise-Webhook Publish
+name: Publish Main
 on:
   push:
     branches:
@@ -50,7 +50,7 @@ jobs:
           IMAGE_NAME="${IMAGE_NAME,,}";
           GHCR_IMAGE="${GH_IMAGE_REGISTRY}/${IMAGE_ORG}/${IMAGE_NAME}";
           BUILD_DATEZ="$(date +'%Y-%m-%dT%TZ%z' -u)";
-          TAGSZ="${GHCR_IMAGE}:beta,${GHCR_IMAGE}:beta-${{ github.sha }}";
+          TAGSZ="${GHCR_IMAGE}:latest,${GHCR_IMAGE}:${{ needs.version.outputs.app_version }}";
           {
             echo "BUILD_TAGS=${TAGSZ}"
             echo "BUILD_DATE=${BUILD_DATEZ}"
