@@ -19,7 +19,7 @@ jobs:
     env:
       GITHUB_TOKEN: "${{ github.token }}"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       # Get the current tag
@@ -87,7 +87,7 @@ jobs:
       - docker
       - version
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Merge develop -> main
         uses: devmasx/merge-branch@1.4.0
         with:
